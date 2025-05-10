@@ -263,7 +263,7 @@ if __name__ == "__main__":
     )
     logger.info(f"Dataset loaded in {time.time() - t_start:.2f} seconds")
     logger.info(f"Dataset: {dataset}")
-    if "size" not in dataset.column_names:
+    if "size" not in dataset.features:
         logger.info("Add text size column")
         dataset = dataset.map(get_size_text)
     if args.fix_license_columns:
