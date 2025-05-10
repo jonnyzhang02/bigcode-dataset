@@ -259,7 +259,7 @@ if __name__ == "__main__":
     t_start = time.time()
     logger.info(f" ===== Loading {args.dataset_name} and subset {args.subset}=====")
     dataset = load_dataset(
-        args.dataset_name, split='train', data_dir=args.subset, streaming=True
+        args.dataset_name, split=args.split, data_dir=args.subset, streaming=True
     )
     logger.info(f"Dataset loaded in {time.time() - t_start:.2f} seconds")
     logger.info(f"Dataset: {dataset}")
@@ -268,9 +268,9 @@ if __name__ == "__main__":
         dataset = dataset.map(get_size_text)
     if args.fix_license_columns:
         dataset = dataset.map(fix_license_cols, num_proc=args.num_workers)
-    logger.info(
-        f"Dataset size before any filtering: {len(dataset)} examples, {sum(dataset['size']) / 1e9:.2f} GB"
-    )
+    # logger.info(
+    #     f"Dataset size before any filtering: {len(dataset)} examples, {sum(dataset['size']) / 1e9:.2f} GB"
+    # )
 
     # Run pre-processing if needed
     if "stars" in filters:
