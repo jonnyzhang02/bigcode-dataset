@@ -536,7 +536,7 @@ if __name__ == "__main__":
             )
             dataset = ds
 
-    dataset.take(1000000)
+    print(len(list(dataset.take(10000000))))
     # Save dataset
     logger.info(
         f"Final dataset has {len(dataset)} samples and {sum(dataset['size']) / 1e9:.2f} GB of code"
