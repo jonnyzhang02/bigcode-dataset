@@ -312,8 +312,8 @@ if __name__ == "__main__":
             logger.info(
                 f"===== Basic filtering with line_max {args.line_max} and avg_line {args.line_mean} and alpha_frac {args.alpha_frac}====="
             )
-            old_size = len(dataset)
-            old_size_gb = sum(dataset["size"])
+            # old_size = len(dataset)
+            # old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(basic_filters)
             logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
@@ -345,8 +345,8 @@ if __name__ == "__main__":
             logger.info(
                 f"Loaded the following filters-per-extension: {ext_to_filter}"
             )
-            old_size = len(dataset)
-            old_size_gb = sum(dataset["size"])
+            # old_size = len(dataset)
+            # old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(partial(basic_filters_per_extension, ext_to_filter=ext_to_filter))
             logger.info(f"{filter} Filtering done in {time.time() - t_start:.2f} seconds")
@@ -369,8 +369,8 @@ if __name__ == "__main__":
             logger.info(
                 f"===== Filtering based on stars with threshold {args.threshold_stars}====="
             )
-            old_size = len(dataset)
-            old_size_gb = sum(dataset["size"])
+            # old_size = len(dataset)
+            # old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(lambda example: example["stars"] > args.threshold_stars)
             logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
@@ -393,7 +393,7 @@ if __name__ == "__main__":
             logger.info(
                 f"===== Filtering on comments ratio with thresholds min: {args.min_threshold_comments}, max: {args.max_threshold_comments}====="
             )
-            old_size = len(dataset)
+            # old_size = len(dataset)
             old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(
@@ -404,13 +404,13 @@ if __name__ == "__main__":
                 f"Percentiles of comments ratio 20th, 22nd, 25th, 80th, 95th and 99th: {np.percentile(dataset['nl_ratio'], [20,  22, 25, 80, 95, 99])}"
             )
             logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
-            logger.info(
-                f"Percentage of removed files: {np.round((old_size - len(ds))*100/old_size, 2)}%"
-            )
+            # logger.info(
+            #     f"Percentage of removed files: {np.round((old_size - len(ds))*100/old_size, 2)}%"
+            # )
             new_size_gb = sum(ds["size"])
-            logger.info(
-                f"Dataset size before {filter} filtering: {old_size} examples, {old_size_gb / 1e9:.2f} GB"
-            )
+            # logger.info(
+            #     f"Dataset size before {filter} filtering: {old_size} examples, {old_size_gb / 1e9:.2f} GB"
+            # )
             logger.info(
                 f"Dataset size after {filter} filtering: {len(ds)} examples, {new_size_gb / 1e9:.2f} GB"
             )
@@ -423,8 +423,8 @@ if __name__ == "__main__":
             logger.info(
                 f"===== Filtering on tokenizer fertility ratio with thresholds {THRESHOLDS_FERTILITY}====="
             )
-            old_size = len(dataset)
-            old_size_gb = sum(dataset["size"])
+            # old_size = len(dataset)
+            # old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(
                 filter_tokenizer,
@@ -455,8 +455,8 @@ if __name__ == "__main__":
             logger.info(
                 f"===== Filtering out XML files ====="
             )
-            old_size = len(dataset)
-            old_size_gb = sum(dataset["size"])
+            # old_size = len(dataset)
+            # old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(
                 filter_xml,
@@ -485,8 +485,8 @@ if __name__ == "__main__":
             logger.info(
                 f"===== Filtering out HTML files ====="
             )
-            old_size = len(dataset)
-            old_size_gb = sum(dataset["size"])
+            # old_size = len(dataset)
+            # old_size_gb = sum(dataset["size"])
             t_start = time.time()
 
             ds = dataset.filter(
@@ -512,8 +512,8 @@ if __name__ == "__main__":
             logger.info(
                 f"===== Filtering out large and small files ====="
             )
-            old_size = len(dataset)
-            old_size_gb = sum(dataset["size"])
+            # old_size = len(dataset)
+            # old_size_gb = sum(dataset["size"])
             t_start = time.time()
 
             ds = dataset.filter(
