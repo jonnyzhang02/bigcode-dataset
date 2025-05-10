@@ -267,7 +267,7 @@ if __name__ == "__main__":
         logger.info("Add text size column")
         dataset = dataset.map(get_size_text)
     if args.fix_license_columns:
-        dataset = dataset.map(fix_license_cols, num_proc=args.num_workers)
+        dataset = dataset.map(fix_license_cols)
     # logger.info(
     #     f"Dataset size before any filtering: {len(dataset)} examples, {sum(dataset['size']) / 1e9:.2f} GB"
     # )
@@ -279,7 +279,7 @@ if __name__ == "__main__":
             convert_none_stars,
             batched=True,
             batch_size=args.batch_size,
-            num_proc=args.num_workers,
+            
         )
     if "comments" in filters:
         logger.info(
@@ -289,7 +289,7 @@ if __name__ == "__main__":
             get_comments_ratio,
             batched=True,
             batch_size=args.batch_size,
-            num_proc=args.num_workers,
+            
         )
     if "fertility" in filters:
         logger.info(
@@ -302,7 +302,7 @@ if __name__ == "__main__":
             partial(char_token_ratio, tokenizer=tokenizer),
             batched=True,
             batch_size=args.batch_size,
-            num_proc=args.num_workers,
+            
         )
     logger.info(f"Dataset processed in {time.time() - t_start:.2f} seconds")
 
@@ -430,7 +430,7 @@ if __name__ == "__main__":
                 filter_tokenizer,
                 batched=True,
                 batch_size=args.batch_size,
-                num_proc=args.num_workers,
+                
             )
             print(
                 f"Percentiles of fertility ratio in all dataset: 3rd, 5th, 10th, 95th and 99th: {np.percentile(dataset['fertility_ratio'], [3, 5, 10, 95, 99])}"
@@ -462,7 +462,7 @@ if __name__ == "__main__":
                 filter_xml,
                 # batched=True,
                 # batch_size=args.batch_size,
-                # num_proc=args.num_workers,
+                # 
             )
             logger.info(f"{filter} Filtering done in {time.time() - t_start:.2f} seconds")
             logger.info(
@@ -491,7 +491,7 @@ if __name__ == "__main__":
 
             ds = dataset.filter(
                 filter_html,
-                num_proc=args.num_workers,
+                
             )
             logger.info(f"{filter} Filtering done in {time.time() - t_start:.2f} seconds")
             logger.info(
@@ -518,7 +518,7 @@ if __name__ == "__main__":
 
             ds = dataset.filter(
                 filter_large_and_small_files,
-                num_proc=args.num_workers,
+                
             )
             logger.info(f"{filter} Filtering done in {time.time() - t_start:.2f} seconds")
             logger.info(
