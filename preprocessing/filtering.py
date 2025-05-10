@@ -259,7 +259,7 @@ if __name__ == "__main__":
     t_start = time.time()
     logger.info(f" ===== Loading {args.dataset_name} and subset {args.subset}=====")
     dataset = load_dataset(
-        args.dataset_name, split='trian', data_dir=args.subset, streaming=True
+        args.dataset_name, split='train', data_dir=args.subset, streaming=True
     )
     logger.info(f"Dataset loaded in {time.time() - t_start:.2f} seconds")
     logger.info(f"Dataset: {dataset}")
