@@ -400,10 +400,10 @@ if __name__ == "__main__":
                 lambda example: example["nl_ratio"] > args.min_threshold_comments
                 and example["nl_ratio"] < args.max_threshold_comments
             )
-            print(
-                f"Percentiles of comments ratio 20th, 22nd, 25th, 80th, 95th and 99th: {np.percentile(dataset['nl_ratio'], [20,  22, 25, 80, 95, 99])}"
-            )
-            logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
+            # print(
+            #     f"Percentiles of comments ratio 20th, 22nd, 25th, 80th, 95th and 99th: {np.percentile(dataset['nl_ratio'], [20,  22, 25, 80, 95, 99])}"
+            # )
+            # logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
             # logger.info(
             #     f"Percentage of removed files: {np.round((old_size - len(ds))*100/old_size, 2)}%"
             # )
