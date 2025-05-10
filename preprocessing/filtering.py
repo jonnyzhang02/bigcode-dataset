@@ -316,20 +316,20 @@ if __name__ == "__main__":
             # old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(basic_filters)
-            logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
-            logger.info(
-                f"Percentage of removed files: {np.round((old_size - len(ds))*100/old_size, 2)}%"
-            )
-            new_size_gb = sum(ds["size"])
-            logger.info(
-                f"Dataset size before {filter} filtering: {old_size} examples, {old_size_gb / 1e9:.2f} GB"
-            )
-            logger.info(
-                f"Dataset size after {filter} filtering: {len(ds)} examples, {new_size_gb / 1e9:.2f} GB"
-            )
-            logger.info(
-                f"Percentage of volume removed {np.round((old_size_gb - new_size_gb)*100/old_size_gb, 2)}%"
-            )
+            # logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
+            # logger.info(
+            #     f"Percentage of removed files: {np.round((old_size - len(ds))*100/old_size, 2)}%"
+            # )
+            # new_size_gb = sum(ds["size"])
+            # logger.info(
+            #     f"Dataset size before {filter} filtering: {old_size} examples, {old_size_gb / 1e9:.2f} GB"
+            # )
+            # logger.info(
+            #     f"Dataset size after {filter} filtering: {len(ds)} examples, {new_size_gb / 1e9:.2f} GB"
+            # )
+            # logger.info(
+            #     f"Percentage of volume removed {np.round((old_size_gb - new_size_gb)*100/old_size_gb, 2)}%"
+            # )
             dataset = ds
         
         elif filter == "basic_per_extension":
@@ -371,22 +371,22 @@ if __name__ == "__main__":
             )
             # old_size = len(dataset)
             # old_size_gb = sum(dataset["size"])
-            t_start = time.time()
+            # t_start = time.time()
             ds = dataset.filter(lambda example: example["stars"] > args.threshold_stars)
-            logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
-            logger.info(
-                f"Percentage of removed files: {np.round((old_size - len(ds))*100/old_size, 2)}%"
-            )
-            new_size_gb = sum(ds["size"])
-            logger.info(
-                f"Dataset size before {filter} filtering: {old_size} examples, {old_size_gb / 1e9:.2f} GB"
-            )
-            logger.info(
-                f"Dataset size after {filter} filtering: {len(ds)} examples, {new_size_gb / 1e9:.2f} GB"
-            )
-            logger.info(
-                f"Percentage of volume removed {np.round((old_size_gb - new_size_gb)*100/old_size_gb, 2)}%"
-            )
+            # logger.info(f"Filtering done in {time.time() - t_start:.2f} seconds")
+            # logger.info(
+            #     f"Percentage of removed files: {np.round((old_size - len(ds))*100/old_size, 2)}%"
+            # )
+            # new_size_gb = sum(ds["size"])
+            # logger.info(
+            #     f"Dataset size before {filter} filtering: {old_size} examples, {old_size_gb / 1e9:.2f} GB"
+            # )
+            # logger.info(
+            #     f"Dataset size after {filter} filtering: {len(ds)} examples, {new_size_gb / 1e9:.2f} GB"
+            # )
+            # logger.info(
+            #     f"Percentage of volume removed {np.round((old_size_gb - new_size_gb)*100/old_size_gb, 2)}%"
+            # )
             dataset = ds
 
         elif filter == "comments":
@@ -394,7 +394,7 @@ if __name__ == "__main__":
                 f"===== Filtering on comments ratio with thresholds min: {args.min_threshold_comments}, max: {args.max_threshold_comments}====="
             )
             # old_size = len(dataset)
-            old_size_gb = sum(dataset["size"])
+            # old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(
                 lambda example: example["nl_ratio"] > args.min_threshold_comments
@@ -407,24 +407,24 @@ if __name__ == "__main__":
             # logger.info(
             #     f"Percentage of removed files: {np.round((old_size - len(ds))*100/old_size, 2)}%"
             # )
-            new_size_gb = sum(ds["size"])
+            # new_size_gb = sum(ds["size"])
             # logger.info(
             #     f"Dataset size before {filter} filtering: {old_size} examples, {old_size_gb / 1e9:.2f} GB"
             # )
-            logger.info(
-                f"Dataset size after {filter} filtering: {len(ds)} examples, {new_size_gb / 1e9:.2f} GB"
-            )
-            logger.info(
-                f"Percentage of volume removed {np.round((old_size_gb - new_size_gb)*100/old_size_gb, 2)}%"
-            )
+            # logger.info(
+            #     f"Dataset size after {filter} filtering: {len(ds)} examples, {new_size_gb / 1e9:.2f} GB"
+            # )
+            # logger.info(
+            #     f"Percentage of volume removed {np.round((old_size_gb - new_size_gb)*100/old_size_gb, 2)}%"
+            # )
             dataset = ds
 
         elif filter == "fertility":
             logger.info(
                 f"===== Filtering on tokenizer fertility ratio with thresholds {THRESHOLDS_FERTILITY}====="
             )
-            # old_size = len(dataset)
-            # old_size_gb = sum(dataset["size"])
+            old_size = len(dataset)
+            old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(
                 filter_tokenizer,
@@ -455,8 +455,8 @@ if __name__ == "__main__":
             logger.info(
                 f"===== Filtering out XML files ====="
             )
-            # old_size = len(dataset)
-            # old_size_gb = sum(dataset["size"])
+            old_size = len(dataset)
+            old_size_gb = sum(dataset["size"])
             t_start = time.time()
             ds = dataset.filter(
                 filter_xml,
@@ -536,6 +536,7 @@ if __name__ == "__main__":
             )
             dataset = ds
 
+    dataset.take(1000000)
     # Save dataset
     logger.info(
         f"Final dataset has {len(dataset)} samples and {sum(dataset['size']) / 1e9:.2f} GB of code"
